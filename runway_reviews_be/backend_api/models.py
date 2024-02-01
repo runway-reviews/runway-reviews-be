@@ -14,7 +14,8 @@ class Reviews(models.Model):
     ('', ''),
     ('', '')
   ]
+
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   airport = models.ForeignKey(Airport, on_delete=models.CASCADE) 
-  comment = models.TextField()
-  category = models.CharField(max_length=20, tags=CATEGORY_TAGS)
+  comment = models.TextField(max_length=20)
+  category = models.CharField(tags=CATEGORY_TAGS)
