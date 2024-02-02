@@ -13,12 +13,12 @@ class Reviews(models.Model):
     ('Security', 'Security'),
     ('Restaurants', 'Restaurants'),
     ('Bathrooms', 'Bathrooms'),
-    ('Arrivals/Departures', 'Arrivals/Departures'),
+    ('General', 'General'),
     ('Amenities', 'Amenities'),
     ('Accessibility', 'Accessibility')
   ]
 
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   airport = models.ForeignKey(Airport, on_delete=models.CASCADE) 
-  comment = models.TextField(max_length=20)
+  comment = models.TextField(max_length=150)
   category = models.CharField(tags=CATEGORY_TAGS)
