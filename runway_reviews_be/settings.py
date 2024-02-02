@@ -13,10 +13,14 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import django_heroku
 import dj_database_url
+from decouple import config
+
 DATABASES = {
-    'default': dj_database_url.config(default='sqlite3://user:pass@localhost/dbname')
-}
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
+    )
+
+}# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
