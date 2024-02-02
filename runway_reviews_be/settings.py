@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
-from pathlib import Path
+import os
 import django_heroku
+from pathlib import Path
 import dj_database_url
 from decouple import config
 
