@@ -7,15 +7,15 @@ class User(models.Model):
   
   def __str__(self):
     return self.username
-  
+
 class Reviews(models.Model): 
   CATEGORY_TAGS = [
-    ('Security', 'Security'),
-    ('Restaurants', 'Restaurants'),
-    ('Bathrooms', 'Bathrooms'),
-    ('General', 'General'),
-    ('Amenities', 'Amenities'),
-    ('Accessibility', 'Accessibility')
+    ('security', 'Security'),
+    ('restaurants', 'Restaurants'),
+    ('bathrooms', 'Bathrooms'),
+    ('general', 'General'),
+    ('amenities', 'Amenities'),
+    ('accessibility', 'Accessibility')
   ]
 
   user = models.ForeignKey(User, on_delete=models.CASCADE)
