@@ -7,18 +7,18 @@ class User(models.Model):
   
   def __str__(self):
     return self.username
-
+  
 class Reviews(models.Model): 
   CATEGORY_TAGS = [
-    ('security', 'Security'),
-    ('restaurants', 'Restaurants'),
-    ('bathrooms', 'Bathrooms'),
-    ('general', 'General'),
-    ('amenities', 'Amenities'),
-    ('accessibility', 'Accessibility')
+    ('Security', 'Security'),
+    ('Restaurants', 'Restaurants'),
+    ('Bathrooms', 'Bathrooms'),
+    ('General', 'General'),
+    ('Amenities', 'Amenities'),
+    ('Accessibility', 'Accessibility')
   ]
 
   user = models.ForeignKey(User, on_delete=models.CASCADE)
-  airport = models.ForeignKey(Airport, on_delete=models.CASCADE) 
+  # airport = models.ForeignKey(Airport, on_delete=models.CASCADE) 
   comment = models.TextField(max_length=150)
-  category = models.CharField(tags=CATEGORY_TAGS)
+  category = models.CharField(choices=CATEGORY_TAGS)

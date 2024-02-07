@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'backend_api',
+    # 'runway_app.apps.RunwayAppConfig',
     'rest_framework'
 ]
 
@@ -77,18 +79,25 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'runway-reviews-be.wsgi.application'
+WSGI_APPLICATION = 'runway_reviews_be.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.path.join(BASE_DIR, 'db.postgresql'),
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.path.join(BASE_DIR, 'db.postgresql'),
-    }
+    'default': dj_database_url.config(
+        default='postgres://localhost:5432/runwayreviewsbe'
+    )
 }
+
 
 
 # Password validation
