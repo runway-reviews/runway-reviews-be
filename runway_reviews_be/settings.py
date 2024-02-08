@@ -24,6 +24,11 @@ DATABASES = {
         default = env('DATABASE_URL', default='postgres://superuser:12345@localhost:5432/runwayreviewsbe')
     )
 }
+
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
+#     )
+# }
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -49,7 +54,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles'
+    'django.contrib.staticfiles',
+    # 'runway_app.apps.RunwayAppConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +87,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'runway-reviews-be.wsgi.application'
+WSGI_APPLICATION = 'runway_reviews_be.wsgi.application'
 
 
 # Database
@@ -92,6 +99,13 @@ WSGI_APPLICATION = 'runway-reviews-be.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.postgresql'),
 #     }
 # }
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default='postgres://localhost:5432/runwayreviewsbe'
+    )
+}
+
 
 
 # Password validation
