@@ -24,6 +24,11 @@ DATABASES = {
         default = env('DATABASE_URL', default='postgres://superuser:12345@localhost:5432/runwayreviewsbe')
     )
 }
+
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
+#     )
+# }
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
