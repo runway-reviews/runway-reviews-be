@@ -1,7 +1,7 @@
 # from django.shortcuts import render, HttpResponse
 from rest_framework.views import APIView 
 from backend_api.models import User, Review  
-from backend_api.serializers import UserSerializer
+from backend_api.serializers import UserSerializer, ReviewSerializer 
 from rest_framework.response import Response
 from rest_framework import status 
 
