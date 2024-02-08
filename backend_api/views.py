@@ -1,21 +1,22 @@
 # from django.shortcuts import render, HttpResponse
+import requests
 from rest_framework.views import APIView 
 from backend_api.models import User 
-from backend_api.serializers import UserSerializer
+# from backend_api.serializers import UserSerializer
 from rest_framework.response import Response
 from rest_framework import status 
-
+from django.http import JsonResponse
 # User actions 
-class UserDetails(APIView):
+# class UserDetails(APIView):
 
   # create users
-  def post(self, request):
-      serializer = UserSerializer(data=request.data)
-      if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-      else: 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  # def post(self, request):
+      # serializer = UserSerializer(data=request.data)
+      # if serializer.is_valid():
+      #   serializer.save()
+      #   return Response(serializer.data)
+      # else: 
+      #   return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -58,3 +59,15 @@ class ReviewDetails(APIView):
       else: 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+def get_airports(request):
+  url = "https://api.api-ninjas.com/v1/airports?country=us"
+  headers = { 
+    "X-Api-Key": "wBYJMUcWGyoBJKsUT34CEg==Yd6H5zc6HAjbeSHC"
+  }
+  response = requests.get(url, headers=headers)
+  if response.status_code == 200:
+      data = response.json()
+      return JsonResponse(data, safe=False)
+  else:
+      return JsonResponse({"error": "Failed to fetch data"}, status=500)
+  
