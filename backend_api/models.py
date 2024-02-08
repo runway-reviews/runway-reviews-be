@@ -8,8 +8,7 @@ class User(models.Model):
   def __str__(self):
     return self.username
 
-
-class Reviews(models.Model): 
+class Review(models.Model): 
   CATEGORY_TAGS = [
     ('security', 'Security'),
     ('restaurants', 'Restaurants'),
