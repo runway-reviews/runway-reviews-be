@@ -9,18 +9,21 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
 import os
 import django_heroku
 from pathlib import Path
 import dj_database_url
-from decouple import config
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
+        default = env('DATABASE_URL', default='postgres://superuser:12345@localhost:5432/runwayreviewsbe')
     )
 }
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -34,19 +37,19 @@ SECRET_KEY = 'django-insecure-c@a8tt&m4xgq8i-jt*m5+)*fe@awf7t3os--hrj(owsmfe@@u3
 # SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG = True # Set to False for deployment 
-ALLOWED_HOSTS = [ ] # our server 'localhost?' 
+ALLOWED_HOSTS = ['localhost', '127.0.0.1'] # our server 'localhost?' 
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'backend_api',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'backend_api',
     # 'runway_app.apps.RunwayAppConfig',
     'rest_framework',
 ]
