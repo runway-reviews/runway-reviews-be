@@ -1,15 +1,20 @@
 from rest_framework import serializers 
-from backend_api.models import User, Review  
-from django.forms import ValidationError
+from .models import *
+import pdb 
 
+# Users
 class UserSerializer(serializers.ModelSerializer): 
-    description = serializers.SerializerMethodField()
     class Meta:
         model = User  
-        fields = '__all__'
+        # fields = '__all__'
+        fields = ['id', 'username', 'email', 'password', 'date_created', 'updated_at']
 
+# Reviews 
 class ReviewSerializer(serializers.ModelSerializer): 
-    description = serializers.SerializerMethodField()
+    user_id = serializers.SerializerMethodField()
+    # airport_id = serializers.SerializerMethodField()
+    
     class Meta:
         model = Review  
-        fields = '__all__'
+        # fields = '__all__'
+        fields = ['id', 'comment', 'category', 'date_created', 'updated_at', 'user_id'] # needs airport_id 
