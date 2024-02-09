@@ -85,11 +85,11 @@ def airport_list(request):
       airport, created = Airport.objects.update_or_create(
         name=airport_data['name'],
       )
-    updated_airports.append(airport)
-    if created:
-        print(f"Created new airport: {airport.name}")
-    else:
-        print(f"Updated existing airport: {airport.name}")
+      updated_airports.append(airport)
+      if created:
+          print(f"Created new airport: {airport.name}")
+      else:
+          print(f"Updated existing airport: {airport.name}")
     serializer = AirportSerializer(updated_airports, many=True)
     return JsonResponse(serializer.data, safe=False, status=200)
   except IntegrityError as e:
