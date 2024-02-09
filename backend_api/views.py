@@ -110,4 +110,3 @@ def get_airports(request):
       return JsonResponse(data, safe=False)
   else:
       return JsonResponse({"error": "Failed to fetch data"}, status=500)
-  
