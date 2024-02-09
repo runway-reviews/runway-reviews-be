@@ -1,8 +1,7 @@
 import pytest
 from django.test import TestCase
-from .models import Reviews
+from .models import *
 from django.core.exceptions import ValidationError
-
 
 
 @pytest.mark.django_db
