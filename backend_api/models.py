@@ -17,9 +17,10 @@ class Review(models.Model):
     ('amenities', 'Amenities'),
     ('accessibility', 'Accessibility')
   ]
+  user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+  airport_id = models.CharField(max_length=9)
   comment = models.TextField(max_length=150)
   category = models.CharField(choices=CATEGORY_TAGS)
-
   # user = models.ForeignKey() # (User, on_delete=models.CASCADE)
   # airport = models.ForeignKey() #(Airport, on_delete=models.CASCADE) 
 

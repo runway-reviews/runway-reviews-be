@@ -2,6 +2,7 @@ from rest_framework import serializers
 from backend_api.models import User 
 from backend_api.models import Review
 from django.contrib.auth.hashers import make_password
+from django.core.exceptions import ObjectDoesNotExist
 
 class UserSerializer(serializers.ModelSerializer): 
     password_digest = serializers.SerializerMethodField()
@@ -22,11 +23,11 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
 class ReviewSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    user_id = serializers.IntegerField(source='user.id', read_only=True)
 
     class Meta:
         model = Review
-        fields = ['id', 'user', 'airport_id', 'comment', 'category']
+        fields = ['id', 'user_id', 'airport_id', 'comment', 'category']
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
@@ -34,7 +35,7 @@ class ReviewSerializer(serializers.ModelSerializer):
             'id': representation.get('id'),
             'type': 'review',
             'attributes': {
-                'user_id': representation.get('user').get('id'),
+                'user_id': representation.get('user_id'),
                 'airport_id': representation.get('airport_id'),
                 'comment': representation.get('comment'),
                 'category': representation.get('category'),
@@ -42,9 +43,18 @@ class ReviewSerializer(serializers.ModelSerializer):
             'relationships': {
                 'user': {
                     'data': {
-                        'id': representation.get('user').get('id'),
+                        'id': representation.get('user_id'),
                         'type': 'user'
                     }
                 }
             }
         }
+
+    def save(self, **kwargs):
+        user_id = kwargs.get('user_id')
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            raise serializers.ValidationError('User with id {} does not exist'.format(user_id))
+        self.validated_data['user'] = user
+        return super().save(**kwargs)
