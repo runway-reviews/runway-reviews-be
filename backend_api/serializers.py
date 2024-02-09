@@ -72,8 +72,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     #     }
 
     def save(self, **kwargs):
-        user = kwargs.get('user')
-        pdb.set_trace()
-        user = User.objects.get(id=user.id)
+        user_id = kwargs.get('user_id')
+        user = User.objects.get(id=user_id)
         self.validated_data['user'] = user
         return super().save(**kwargs)
