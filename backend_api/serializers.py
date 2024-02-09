@@ -3,6 +3,7 @@ from backend_api.models import User
 from backend_api.models import Review
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ObjectDoesNotExist
+import pdb
 
 class UserSerializer(serializers.ModelSerializer): 
     password_digest = serializers.SerializerMethodField()
@@ -24,37 +25,55 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ReviewSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField(source='user.id', read_only=True)
+    attributes = serializers.SerializerMethodField()
+    relationships = serializers.SerializerMethodField()
 
     class Meta:
         model = Review
-        fields = ['id', 'user_id', 'airport_id', 'comment', 'category']
+        fields = ['id', 'user_id', 'airport_id', 'comment', 'category', 'attributes', 'relationships']
 
-    def to_representation(self, instance):
-        representation = super().to_representation(instance)
+    def get_attributes(self, obj):
         return {
-            'id': representation.get('id'),
-            'type': 'review',
-            'attributes': {
-                'user_id': representation.get('user_id'),
-                'airport_id': representation.get('airport_id'),
-                'comment': representation.get('comment'),
-                'category': representation.get('category'),
-            },
-            'relationships': {
-                'user': {
-                    'data': {
-                        'id': representation.get('user_id'),
-                        'type': 'user'
-                    }
+            'user_id': obj.user.id,
+            'airport_id': obj.airport_id,
+            'comment': obj.comment,
+            'category': obj.category
+        }
+    
+    def get_relationships(self, obj):
+        return {
+            'user': {
+                'data': {
+                    'id': obj.user.id,
+                    'type': 'user'
                 }
             }
         }
 
+    # def to_representation(self, instance):
+    #     representation = super().to_representation(instance)
+    #     return {
+    #         'id': representation.get('id'),
+    #         'type': 'review',
+    #         'attributes': {
+    #             'user_id': representation.get('user_id'),
+    #             'airport_id': representation.get('airport_id'),
+    #             'comment': representation.get('comment'),
+    #             'category': representation.get('category'),
+    #         },
+    #         'relationships': {
+    #             'user': {
+    #                 'data': {
+    #                     'id': representation.get('user_id'),
+    #                     'type': 'user'
+    #                 }
+    #             }
+    #         }
+    #     }
+
     def save(self, **kwargs):
-        user_id = kwargs.get('user_id')
-        try:
-            user = User.objects.get(id=user_id)
-        except User.DoesNotExist:
-            raise serializers.ValidationError('User with id {} does not exist'.format(user_id))
+        user = kwargs.get('user')
+        pdb.set_trace()
+        user = User.objects.get(id=user.id)
         self.validated_data['user'] = user
         return super().save(**kwargs)

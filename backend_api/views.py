@@ -48,13 +48,10 @@ class ReviewDetails(APIView):
         serializer = ReviewSerializer(review)
         return Response(serializer.data) 
 
-    def post(self, request, user_id):
-        user_id = self.get_user(user_id)
-        if isinstance(user_id, Response):
-            return user_id
+    def post(self, request, user_id, format=None):
         serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(user=user_id)
+            serializer.save(user_id=user_id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
