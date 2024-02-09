@@ -28,5 +28,13 @@ class Review(models.Model):
   date_created = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 
-def __str__(self):
-	return self.category
+  def __str__(self):
+    return self.category
+
+# Need to migrate into the db 
+# class Airport(models.Model):
+  # name = coming from an api call
+  # id = how do we make these 
+  
+  # def __str__(self):
+  #   return self.name 
