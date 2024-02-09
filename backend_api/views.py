@@ -61,14 +61,14 @@ class ReviewDetails(APIView):
 # Review actions  
 # class ReviewDetails(APIView):
 
-#   # set_user
-#   def get_user(request, user_id):
-#     try: 
-#         return User.objects.get(pk=user_id)
-#     except: 
-#         return Response({
-#           'error': 'User does not exist' 
-#           }, status=status.HTTP_404_NOT_FOUND)
+  # set_user
+  def get_user(request, user_id):
+    try: 
+        return User.objects.get(pk=user_id)
+    except: 
+        return Response({
+          'error': 'User does not exist' 
+          }, status=status.HTTP_404_NOT_FOUND)
 
 #   # set_review
 #   def get_review(request, review_id):
@@ -96,8 +96,21 @@ class ReviewDetails(APIView):
 #       user = self.get_user(user_id)
 #       serializer = ReviewSerializer(data=request.data)
       
-#       if serializer.is_valid():
-#         serializer.save()
-#         return Response(serializer.data)
-#       else: 
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+      # if serializer.is_valid():
+      #   serializer.save()
+      #   return Response(serializer.data)
+      # else: 
+      #   return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+def get_airports(request):
+  url = "https://api.api-ninjas.com/v1/airports?country=us"
+  headers = { 
+    "X-Api-Key": "wBYJMUcWGyoBJKsUT34CEg==Yd6H5zc6HAjbeSHC"
+  }
+  response = requests.get(url, headers=headers)
+  if response.status_code == 200:
+      data = response.json()
+      return JsonResponse(data, safe=False)
+  else:
+      return JsonResponse({"error": "Failed to fetch data"}, status=500)
+  

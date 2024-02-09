@@ -17,11 +17,11 @@ class Review(models.Model):
     ('amenities', 'Amenities'),
     ('accessibility', 'Accessibility')
   ]
+  comment = models.TextField(max_length=150)
+  category = models.CharField(choices=CATEGORY_TAGS)
 
   # user = models.ForeignKey() # (User, on_delete=models.CASCADE)
   # airport = models.ForeignKey() #(Airport, on_delete=models.CASCADE) 
-  comment = models.TextField(max_length=150)
-  category = models.CharField(choices=CATEGORY_TAGS)
 
 def __str__(self):
 	return self.comment
