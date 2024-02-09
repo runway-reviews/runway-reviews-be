@@ -1,5 +1,5 @@
 from rest_framework import serializers 
-from .models import *
+from backend_api.models import User, Review, Airport
 import pdb 
 
 # User
@@ -19,11 +19,26 @@ class ReviewSerializer(serializers.ModelSerializer):
         # fields = '__all__'
         fields = ['id', 'comment', 'category', 'date_created', 'updated_at', 'user_id', 'airport_id'] # needs airport_id 
 
-# Commented out until Airport model migrated 
 
-# Airport
-# class AirportSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Airport 
-#         # fields = '__all__'
-#         fields = ['id', 'name']
+class AirportSerializer(serializers.ModelSerializer):
+  attributes = serializers.SerializerMethodField()
+  class Meta:
+    model = Airport
+    fields = ['id', 'attributes']
+
+  def get_attributes(self, obj):
+    return {
+      'name': obj.name,
+    }
+
+
+class AirportSerializer(serializers.ModelSerializer):
+  attributes = serializers.SerializerMethodField()
+  class Meta:
+    model = Airport
+    fields = ['id', 'attributes']
+
+  def get_attributes(self, obj):
+    return {
+      'name': obj.name,
+    }
