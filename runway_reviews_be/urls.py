@@ -21,7 +21,7 @@ from backend_api import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('get-airports/', views.get_airports, name='get_airports'),
+    path('', include('backend_api.urls')) 
 ]
     # path('users/', ),
-    path('', include('backend_api.urls')) 
 # ]

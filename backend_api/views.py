@@ -62,13 +62,13 @@ class ReviewDetails(APIView):
 # class ReviewDetails(APIView):
 
   # set_user
-  def get_user(request, user_id):
-    try: 
-        return User.objects.get(pk=user_id)
-    except: 
-        return Response({
-          'error': 'User does not exist' 
-          }, status=status.HTTP_404_NOT_FOUND)
+  # def get_user(request, user_id):
+  #   try: 
+  #       return User.objects.get(pk=user_id)
+  #   except: 
+  #       return Response({
+  #         'error': 'User does not exist' 
+  #         }, status=status.HTTP_404_NOT_FOUND)
 
 #   # set_review
 #   def get_review(request, review_id):
