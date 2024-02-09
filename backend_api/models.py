@@ -23,5 +23,5 @@ class Review(models.Model):
   comment = models.TextField(max_length=150)
   category = models.CharField(choices=CATEGORY_TAGS)
 
-# def __str__(self):
-# 	return f'{self.comment}'
+def __str__(self):
+	return self.comment
