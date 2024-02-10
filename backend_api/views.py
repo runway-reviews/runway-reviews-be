@@ -7,13 +7,17 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from backend_api.models import User, Review, Airport
 from backend_api.serializers import UserSerializer, ReviewSerializer, AirportSerializer
+from django.conf import settings
+
+SIMPLE_API_KEY = settings.SIMPLE_API_KEY
+
 
 
 # Review actions  
 def get_airports(request):
   url = "https://api.api-ninjas.com/v1/airports?country=us"
   headers = { 
-    "X-Api-Key": "wBYJMUcWGyoBJKsUT34CEg==Yd6H5zc6HAjbeSHC"
+    "X-Api-Key": SIMPLE_API_KEY
   }
   response = requests.get(url, headers=headers)
   if response.status_code == 200:
