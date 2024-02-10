@@ -26,7 +26,7 @@ class Review(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
   airport = models.ForeignKey(Airport, on_delete=models.CASCADE, null=True)
   comment = models.TextField(max_length=150)
-  category = models.CharField(choices=CATEGORY_TAGS)
+  category = models.CharField(choices=CATEGORY_TAGS, max_length=50)
 
 def __str__(self):
 	return self.comment
