@@ -31,7 +31,7 @@ def airports(request):
       airports_data = get_airports(request)
       for airport_data in airports_data:
         airport, created = Airport.objects.update_or_create(
-          name=airport_data['name'],
+          name=airport_data[0],
         )
         updated_airports.append(airport)
         if created:
