@@ -2,7 +2,7 @@
 
 ## Tech Stack 
 ---
-[Python](https://www.python.org/) - The project is developed with Python 3.12.1. Ensure that Python and pip (Python's package installer) are in your system's PATH. 
+[Python](https://www.python.org/) - The project is developed with Python 3.12.1. Ensure that Python and pip (Python's package installer) are in your system's PATH. </br>
 [Django REST Framework](https://www.django-rest-framework.org/) - This was used to ensure a scalable and secure connection between the front and backend services. 
 
 ## Getting Started
@@ -50,4 +50,14 @@ Reviews
 ```
 /reviews
 ```
+
+## Collaborators
+Front-End :
+[Emalee Poellot](https://github.com/em2396)  | 
+[Zen Mcmillan](https://github.com/zenmcmillan) 
+
+Back-End:
+[Justin Lee](https://github.com/JustinSteel) |
+[Brendan Bondurant](https://github.com/brendan-bondurant) |
+[Blake Sergesketter](https://github.com/bserge13)
 
