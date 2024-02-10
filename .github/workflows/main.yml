@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Clear git cache
+        run: git rm -r --cached .
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
