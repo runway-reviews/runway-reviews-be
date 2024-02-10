@@ -19,10 +19,13 @@ import django_heroku
 from pathlib import Path
 import dj_database_url
 
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default = env('DATABASE_URL', default='postgres://superuser:12345@localhost:5432/runwayreviewsbe')
+#     )
+# }
 DATABASES = {
-    'default': dj_database_url.config(
-        default = env('DATABASE_URL', default='postgres://superuser:12345@localhost:5432/runwayreviewsbe')
-    )
+    'default': dj_database_url.config(conn_max_age=600)
 }
 
 #     'default': dj_database_url.config(
@@ -108,13 +111,11 @@ WSGI_APPLICATION = 'runway_reviews_be.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default='postgres://localhost:5432/runwayreviewsbe'
-    )
-}
-
-
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='postgres://localhost:5432/runwayreviewsbe'
+#     )
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
