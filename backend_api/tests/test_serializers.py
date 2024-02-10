@@ -1,7 +1,8 @@
 from django.test import TestCase
 from rest_framework.serializers import ValidationError
-from serializers import UserSerializer, ReviewSerializer
+from serializers import UserSerializer, ReviewSerializer, AirportSerializer
 from backend_api.models import Review, User, Airport
+
 
 class UserSerializerTest(TestCase):
   def test_user_serializer(self):

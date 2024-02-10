@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'email', 'password', 'password_digest']
-       
+        
     def get_password_digest(self, obj):
         return make_password(obj.password)
 
