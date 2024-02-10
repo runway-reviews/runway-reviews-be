@@ -6,16 +6,16 @@ from django.core.exceptions import ValidationError
 
 
 @pytest.mark.django_db
-class TestReviewsModel:
-    @pytest.mark.parametrize("tag, expected", Reviews.CATEGORY_TAGS)
+class TestReviewModel:
+    @pytest.mark.parametrize("tag, expected", Review.CATEGORY_TAGS)
     def test_category_tag_creation(self, tag, expected):
-        review = Reviews.objects.create(category=tag, comment="Sample review comment.")
-        saved_review = Reviews.objects.get(id=review.id)
+        review = Review.objects.create(category=tag, comment="Sample review comment.")
+        saved_review = Review.objects.get(id=review.id)
         assert saved_review.category == tag, f"Category tag '{tag}' should be saved and retrieved correctly."
         assert saved_review.comment == "Sample review comment.", "The comment should be saved and retrieved correctly."
 
     def test_invalid_category_tag(self):
-      review = Reviews(category='invalid_tag', comment="Sample comment")
+      review = Review(category='invalid_tag', comment="Sample comment")
       with pytest.raises(ValidationError):
         review.full_clean()
 
