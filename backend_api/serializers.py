@@ -66,27 +66,7 @@ class AirportSerializer(serializers.ModelSerializer):
     model = Airport
     fields = ['id', 'attributes']
 
-    def validate_name(self, value):
-        """
-        Check that the name is indeed a string
-        """
-        if not isinstance(value, str):
-            raise serializers.ValidationError("Name must be a string.")
-        return value
-
-    def to_representation(self, instance):
-        """
-        Object instance -> Dict of primitive datatypes.
-        """
-        # Ensure instance.name is a string, even if it's originally bytes
-        name = instance.name
-        if isinstance(name, bytes):
-            name = name.decode('utf-8')  # Decode bytes to string
-
-        representation = super().to_representation(instance)
-        representation['name'] = name  # Ensure 'name' in the output is always a string
-        return {
-            'id': str(instance.pk),
-            'type': 'airport',
-            'attributes': representation
-        }
+  def get_attributes(self, obj):
+    return {
+      'name': obj.name,
+    }
