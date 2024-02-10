@@ -1,6 +1,6 @@
 import pytest
 from django.test import TestCase
-from .models import Reviews
+from .models import Review
 from django.core.exceptions import ValidationError
 
 
