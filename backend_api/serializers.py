@@ -53,7 +53,9 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     def save(self, **kwargs):
         user = kwargs.get('user', None)
+        airport = kwargs.get('airport', None)
         self.validated_data['user'] = user
+        self.validated_data['airport'] = airport
         return super().save(**kwargs)
 
 

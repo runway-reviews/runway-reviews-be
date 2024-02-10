@@ -8,6 +8,7 @@ from backend_api.serializers import UserSerializer, ReviewSerializer, AirportSer
 from django.http import JsonResponse
 from django.db import IntegrityError
 from django.http import Http404
+from django.shortcuts import get_object_or_404
 
 
 # Review actions  
@@ -114,6 +115,12 @@ class ReviewDetails(APIView):
           serializer.save(user=user, airport=airport)
           return Response(serializer.data, status=status.HTTP_201_CREATED)
       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, user_id, review_id, format=None):
+      review = get_object_or_404(Review, pk=review_id)
+      review.delete()
+      return Response({'message': 'Review deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+     
 
 
       
