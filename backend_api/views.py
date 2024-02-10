@@ -15,37 +15,58 @@ SIMPLE_API_KEY = settings.SIMPLE_API_KEY
 
 # Review actions  
 def get_airports(request):
-  url = "https://api.api-ninjas.com/v1/airports?country=us"
-  headers = { 
-    "X-Api-Key": SIMPLE_API_KEY
-  }
-  response = requests.get(url, headers=headers)
-  if response.status_code == 200:
-      return response.json()
-  else:
-      return JsonResponse({"error": "Failed to fetch data"}, status=500)
-  
+    url = "https://api.api-ninjas.com/v1/airports?country=us"
+    headers = {
+        "X-Api-Key": SIMPLE_API_KEY
+    }
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        try:
+            return response.json()
+        except json.JSONDecodeError as e:
+            print(f"JSON parsing error: {e}")
+            return {"error": "Failed to parse JSON response"}
+    else:
+        return {"error": "Failed to fetch data from the API", "status_code": response.status_code}
+
 def airports(request):
     updated_airports = []
-    try: 
-      airports_data = get_airports(request)
-      for airport_data in airports_data:
-        airport, created = Airport.objects.update_or_create(
-          name=airport_data['name'],
-        )
-        updated_airports.append(airport)
-        if created:
-            print(f"Created new airport: {airport.name}")
-        else:
-            print(f"Updated existing airport: {airport.name}")
-      serializer = AirportSerializer(updated_airports, many=True)
-      return JsonResponse(serializer.data, safe=False, status=200)
+    try:
+        airports_data = get_airports(request)
+        
+        # Check if airports_data is a list
+        if not isinstance(airports_data, list):
+            raise ValueError("Invalid data structure for airports_data")
+        
+        for airport_data in airports_data:
+            # Ensure airport_data is a dictionary
+            if not isinstance(airport_data, dict):
+                raise ValueError("Invalid data structure for an airport entry")
+            
+            airport, created = Airport.objects.update_or_create(
+                name=airport_data['name'],
+            )
+            updated_airports.append(airport)
+            if created:
+                print(f"Created new airport: {airport.name}")
+            else:
+                print(f"Updated existing airport: {airport.name}")
+
+        serializer = AirportSerializer(updated_airports, many=True)
+        return JsonResponse(serializer.data, safe=False, status=200)
+
     except IntegrityError as e:
         print(f"Database error occurred: {e}")
         return JsonResponse({"error": str(e)}, status=500)
+    except ValueError as e:
+        print(f"Value error occurred: {e}")
+        return JsonResponse({"error": str(e)}, status=400)
+    except TypeError as e:
+        print(f"Type error occurred: {e}")
+        return JsonResponse({"error": "Incorrect data type encountered"}, status=400)
     except Exception as e:
-        print(f"An error occurred: {e}")
-        return JsonResponse({"error": str(e)}, status=500)
+        print(f"An unexpected error occurred: {e}")
+        return JsonResponse({"error": "An unexpected error occurred"}, status=500)
 
 class UserDetails(APIView):
   def post(self, request):
