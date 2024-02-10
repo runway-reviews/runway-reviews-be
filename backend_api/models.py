@@ -8,6 +8,8 @@ class User(models.Model):
   def __str__(self):
     return self.username
 
+
+
 class Airport(models.Model):
   name = models.CharField(max_length=55, null=True)
 
