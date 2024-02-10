@@ -16,13 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from backend_api import views 
+# from backend_api import views 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('get-airports/', views.get_airports, name='get_airports'),
-    path('airport_list/', views.airport_list, name='airport_list'),
+    # path('get-airports/', views.get_airports, name='get_airports'),
+    # path('airports/', views.airports, name='airports'),
+    path('', include('backend_api.urls')) 
 ]
-    # path('users/', )
-    # path('/', include('backend_api.urls')) 
+    # path('users/', ),
 # ]
