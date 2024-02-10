@@ -23,3 +23,5 @@ jobs:
           pip install -r requirements.txt
       - name: Run Tests
         run: python manage.py test
+        env:
+          SIMPLE_API_KEY: ${{ secrets.SIMPLE_API_KEY }}
