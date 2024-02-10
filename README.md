@@ -34,11 +34,20 @@
 ## API Endpoints
 ---
 The base url for the following endpoints is 
+```
+https://runwayreviewsbe-4165084ad9d0.herokuapp.com
+```
 
 Airports
-
+```
+/airports
+```
 Users
-
+```
+/users
+```
 Reviews
-
+```
+/reviews
+```
 
