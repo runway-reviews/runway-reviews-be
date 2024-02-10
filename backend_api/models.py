@@ -30,5 +30,6 @@ class Review(models.Model):
   comment = models.TextField(max_length=150)
   category = models.CharField(choices=CATEGORY_TAGS, max_length=50)
 
-def __str__(self):
-	return self.comment
+  def __str__(self):
+	  return self.comment
+
