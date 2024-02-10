@@ -14,21 +14,21 @@ SIMPLE_API_KEY = settings.SIMPLE_API_KEY
 
 
 # Review actions  
-def get_airports(request):
-  url = "https://api.api-ninjas.com/v1/airports?country=us"
-  headers = { 
-    "X-Api-Key": SIMPLE_API_KEY
-  }
-  response = requests.get(url, headers=headers)
-  if response.status_code == 200:
-      return response.json()
-  else:
-      return JsonResponse({"error": "Failed to fetch data"}, status=500)
+def get_airports():
+    url = "https://api.api-ninjas.com/v1/airports?country=us"
+    headers = {
+        "X-Api-Key": SIMPLE_API_KEY
+    }
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return JsonResponse({"error": "Failed to fetch data"}, status=500)
   
 def airports(request):
     updated_airports = []
     try: 
-      airports_data = get_airports(request)
+      airports_data = get_airports()
       for airport_data in airports_data:
         airport, created = Airport.objects.update_or_create(
           name=airport_data['name'],
