@@ -9,11 +9,12 @@ class UserSerializer(serializers.ModelSerializer):
         # fields = '__all__'
         fields = ['id', 'username', 'email', 'password', 'date_created', 'updated_at']
 
+
 # Review 
 class ReviewSerializer(serializers.ModelSerializer): 
     user_id = serializers.SerializerMethodField()
     # airport_id = serializers.SerializerMethodField()
-    
+
     class Meta:
         model = Review  
         # fields = '__all__'

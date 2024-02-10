@@ -17,7 +17,7 @@ class UserSerializerTest(TestCase):
 class UserSerializerInvalid(TestCase):
   def test_user_serializer_invalid(self):
     data = {
-            "id": "1",
+      "id": "1",
       "username": "snickers1"
     }
     serializer = UserSerializer(data=data)

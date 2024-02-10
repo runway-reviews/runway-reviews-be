@@ -1,7 +1,7 @@
 from django.test import TestCase
 from rest_framework.serializers import ValidationError
 from serializers import ReviewSerializer
-from backend_api.models import Review, User, Airport # Airport is not migrated which is why it's gray 
+from backend_api.models import Review, User, Airport
 
 class ReviewSerializerTest(TestCase):
   def test_review_serializer(self):
