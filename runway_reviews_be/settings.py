@@ -39,6 +39,9 @@ APPEND_SLASH = True
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-c@a8tt&m4xgq8i-jt*m5+)*fe@awf7t3os--hrj(owsmfe@@u3'
 
+SIMPLE_API_KEY = env('SIMPLE_API_KEY')
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG = True # Set to False for deployment 
@@ -59,6 +62,7 @@ INSTALLED_APPS = [
 
     # 'runway_app.apps.RunwayAppConfig',
     'rest_framework',
+    "rest_framework_api_key",
     'corsheaders'
 ]
 
