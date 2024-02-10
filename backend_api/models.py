@@ -16,12 +16,12 @@ class Airport(models.Model):
 
 class Review(models.Model): 
   CATEGORY_TAGS = [
-    ('security', 'Security'),
-    ('restaurants', 'Restaurants'),
-    ('bathrooms', 'Bathrooms'),
-    ('general', 'General'),
-    ('amenities', 'Amenities'),
-    ('accessibility', 'Accessibility')
+    ('Security', 'Security'),
+    ('Restaurants', 'Restaurants'),
+    ('Bathrooms', 'Bathrooms'),
+    ('General', 'General'),
+    ('Amenities', 'Amenities'),
+    ('Accessibility', 'Accessibility')
   ]
   user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
   airport = models.ForeignKey(Airport, on_delete=models.CASCADE, null=True)

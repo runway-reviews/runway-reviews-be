@@ -1,14 +1,12 @@
-import json
+from django.db import IntegrityError
+from django.http import JsonResponse, Http404
+from django.shortcuts import get_object_or_404
 import requests
-from rest_framework import status 
-from rest_framework.views import APIView  
+from rest_framework import status
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from backend_api.models import User, Review, Airport
 from backend_api.serializers import UserSerializer, ReviewSerializer, AirportSerializer
-from django.http import JsonResponse
-from django.db import IntegrityError
-from django.http import Http404
-from django.shortcuts import get_object_or_404
 
 
 # Review actions  
@@ -17,11 +15,8 @@ def get_airports(request):
   headers = { 
     "X-Api-Key": "wBYJMUcWGyoBJKsUT34CEg==Yd6H5zc6HAjbeSHC"
   }
-  # airports = Airport.objects.all()
   response = requests.get(url, headers=headers)
   if response.status_code == 200:
-      data = response.json()
-      # serializer = AirportSerializer(airports, many=True)
       return response.json()
   else:
       return JsonResponse({"error": "Failed to fetch data"}, status=500)
@@ -71,29 +66,16 @@ class ReviewList(APIView):
       
 class ReviewDetails(APIView):
     def get_user(self, user_id):
-      try: 
-          return User.objects.get(pk=user_id)
-      except User.DoesNotExist: 
-          raise Http404("User does not exist")
+        return get_object_or_404(User, pk=user_id)
 
     def get_review(self, review_id):
-      try: 
-          return Review.objects.get(pk=review_id)
-      except: 
-          return Response({
-            'error': 'Review does not exist' 
-            }, status=status.HTTP_404_NOT_FOUND)
-      
+        return get_object_or_404(Review, pk=review_id)
+
     def get_airport(self, airport_id):
-      try: 
-          return Airport.objects.get(pk=airport_id)
-      except Airport.DoesNotExist: 
-          raise Http404("Airport does not exist")
+        return get_object_or_404(Airport, pk=airport_id)
 
     def get(self, request, review_id):
         review = self.get_review(review_id)
-        if isinstance(review, Response):
-            return review
         serializer = ReviewSerializer(review)
         return Response(serializer.data) 
 
