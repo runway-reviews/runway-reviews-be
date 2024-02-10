@@ -62,7 +62,7 @@ INSTALLED_APPS = [
 
     # 'runway_app.apps.RunwayAppConfig',
     'rest_framework',
-    "rest_framework_simple_api_key",
+    "rest_framework_api_key",
     'corsheaders'
 ]
 
