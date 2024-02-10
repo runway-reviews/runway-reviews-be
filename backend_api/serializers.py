@@ -1,6 +1,5 @@
 from rest_framework import serializers 
-from backend_api.models import User 
-from backend_api.models import Review
+from backend_api.models import Airport, Review, User
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ObjectDoesNotExist
 import pdb
@@ -25,67 +24,38 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ReviewSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField(source='user.id', read_only=True)
-    attributes = serializers.SerializerMethodField()
-    relationships = serializers.SerializerMethodField()
+    airport_id = serializers.IntegerField(source='airport.id', read_only=True)
 
     class Meta:
         model = Review
-        fields = ['id', 'user_id', 'airport_id', 'comment', 'category', 'attributes', 'relationships']
+        fields = ['id', 'user_id', 'airport_id', 'comment', 'category']
 
-    def get_attributes(self, obj):
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
         return {
-            'user_id': obj.user.id,
-            'airport_id': obj.airport_id,
-            'comment': obj.comment,
-            'category': obj.category
-        }
-    
-    def get_relationships(self, obj):
-        return {
-            'user': {
-                'data': {
-                    'id': obj.user.id,
-                    'type': 'user'
+            'id': representation.get('id'),
+            'type': 'review',
+            'attributes': {
+                'user_id': representation.get('user_id'),
+                'airport_id': representation.get('airport_id'),
+                'comment': representation.get('comment'),
+                'category': representation.get('category'),
+            },
+            'relationships': {
+                'user': {
+                    'data': {
+                        'id': representation.get('user_id'),
+                        'type': 'user'
+                    }
                 }
             }
         }
 
-    # def to_representation(self, instance):
-    #     representation = super().to_representation(instance)
-    #     return {
-    #         'id': representation.get('id'),
-    #         'type': 'review',
-    #         'attributes': {
-    #             'user_id': representation.get('user_id'),
-    #             'airport_id': representation.get('airport_id'),
-    #             'comment': representation.get('comment'),
-    #             'category': representation.get('category'),
-    #         },
-    #         'relationships': {
-    #             'user': {
-    #                 'data': {
-    #                     'id': representation.get('user_id'),
-    #                     'type': 'user'
-    #                 }
-    #             }
-    #         }
-    #     }
-
     def save(self, **kwargs):
-        user_id = kwargs.get('user_id')
-        user = User.objects.get(id=user_id)
+        user = kwargs.get('user', None)
         self.validated_data['user'] = user
         return super().save(**kwargs)
-from rest_framework import serializers 
-# from backend_api.models import User 
-from backend_api.models import Airport 
-# from django.forms import ValidationError
 
-# class UserSerializer(serializers.ModelSerializer): 
-#     description = serializers.SerializerMethodField()
-#     class Meta:
-#         model = User  
-#         fields = '__all__'
 
 
 class AirportSerializer(serializers.ModelSerializer):
