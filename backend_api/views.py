@@ -25,55 +25,27 @@ def get_airports(request):
   else:
       return JsonResponse({"error": "Failed to fetch data"}, status=500)
   
-from django.http import JsonResponse
-from django.db import IntegrityError
-
 def airports(request):
     updated_airports = []
-    try:
-        airports_data = get_airports(request)  # Assuming get_airports is defined elsewhere and returns the API response
-        
-        # Check if airports_data is a list
-        if not isinstance(airports_data, list):
-            raise ValueError("Invalid data structure for airports_data")
-
-        for airport_data in airports_data:
-            # Validate airport_data structure
-            if not isinstance(airport_data, dict) or 'name' not in airport_data:
-                print(f"Invalid airport data structure or missing 'name' key: {airport_data}")
-                continue  # Skip this iteration and move to the next item
-
-            # Update or create Airport object
-            airport, created = Airport.objects.update_or_create(
-                name=airport_data['name'],
-            )
-            updated_airports.append(airport)
-
-            # Log the creation or update action
-            if created:
-                print(f"Created new airport: {airport.name}")
-            else:
-                print(f"Updated existing airport: {airport.name}")
-
-        # Serialize the list of Airport objects
-        serializer = AirportSerializer(updated_airports, many=True)
-
-        # Return the serialized data as a JsonResponse
-        return JsonResponse(serializer.data, safe=False, status=200)
-
+    try: 
+      airports_data = get_airports(request)
+      for airport_data in airports_data:
+        airport, created = Airport.objects.update_or_create(
+          name=airport_data['name'],
+        )
+        updated_airports.append(airport)
+        if created:
+            print(f"Created new airport: {airport.name}")
+        else:
+            print(f"Updated existing airport: {airport.name}")
+      serializer = AirportSerializer(updated_airports, many=True)
+      return JsonResponse(serializer.data, safe=False, status=200)
     except IntegrityError as e:
         print(f"Database error occurred: {e}")
         return JsonResponse({"error": str(e)}, status=500)
-    except ValueError as e:
-        print(f"Value error occurred: {e}")
-        return JsonResponse({"error": str(e)}, status=400)
-    except TypeError as e:
-        print(f"Type error occurred: {e}")
-        return JsonResponse({"error": "Incorrect data type encountered"}, status=400)
     except Exception as e:
-        print(f"An unexpected error occurred: {e}")
-        return JsonResponse({"error": "An unexpected error occurred"}, status=500)
-
+        print(f"An error occurred: {e}")
+        return JsonResponse({"error": str(e)}, status=500)
 
 class UserDetails(APIView):
   def post(self, request):

@@ -64,7 +64,7 @@ class AirportSerializer(serializers.ModelSerializer):
   attributes = serializers.SerializerMethodField()
   class Meta:
     model = Airport
-    fields = ['id', 'attributes']
+    fields = ['id', 'name', 'attributes']
 
   def get_attributes(self, obj):
     return {
