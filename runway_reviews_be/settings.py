@@ -19,19 +19,6 @@ import django_heroku
 from pathlib import Path
 import dj_database_url
 
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default = env('DATABASE_URL', default='postgres://superuser:12345@localhost:5432/runwayreviewsbe')
-#     )
-# }
-DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
-}
-
-#     'default': dj_database_url.config(
-#         default=config('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
-#     )
-# }
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -48,7 +35,7 @@ SIMPLE_API_KEY = env('SIMPLE_API_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG = False # Set to False for deployment 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://runwayreviewsbe-4165084ad9d0.herokuapp.com/'] 
+ALLOWED_HOSTS = ['*'] 
 
 
 # Application definition
@@ -110,12 +97,25 @@ WSGI_APPLICATION = 'runway_reviews_be.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.postgresql'),
 #     }
 # }
-
+# # DATABASES = {
+# #     'default': dj_database_url.config(
+# #         default='postgres://localhost:5432/runwayreviewsbe'
+# #     )
+# # }
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default = env('DATABASE_URL', default='postgres://superuser:12345@localhost:5432/runwayreviewsbe')
+#     )
+# }
+# DATABASES = {
+#     'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+# }
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://localhost:5432/runwayreviewsbe'
+        default=config('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
     )
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
