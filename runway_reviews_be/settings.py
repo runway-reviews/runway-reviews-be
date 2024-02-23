@@ -47,7 +47,7 @@ SIMPLE_API_KEY = env('SIMPLE_API_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = False # Set to False for deployment 
+DEBUG = True # Set to False for deployment 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'runwayreviewsbe-4165084ad9d0.herokuapp.com']
 
 

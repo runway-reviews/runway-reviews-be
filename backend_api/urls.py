@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from backend_api.views import UserDetails, ReviewDetails, ReviewList
+from backend_api.views import UserDetails, ReviewDetails, ReviewList, airports
 from backend_api import views
 
 urlpatterns = [
@@ -10,6 +10,7 @@ urlpatterns = [
     path('user/<int:user_id>/reviews/<int:review_id>', ReviewDetails.as_view(), name='delete_review'),
     path('reviews', ReviewList.as_view(), name='review-list'),
     path('get-airports/', views.get_airports, name='get_airports'),
-    path('airports/', views.airports, name='airports'),
+    # path('airports/', views.airports, name='airports'),
+    path('airports/', airports, name='airports'),
 
 ]
