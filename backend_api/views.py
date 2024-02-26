@@ -38,15 +38,11 @@ def get_airports(request):
                     airport_name = li.text.split('–')[0].strip()
                     airport_list.append(airport_name)
 
-    pdb.set_trace()
-    print(airport_list)
+    return JsonResponse({'airport_list': airport_list}, safe=False)
 
 def airports(request):
-
     airport_list = get_airports(request)
-
     updated_airports = []
-
     for airport_name in airport_list:
         airport, created = Airport.objects.update_or_create(
             name=airport_name,

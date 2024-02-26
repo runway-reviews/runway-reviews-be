@@ -11,7 +11,7 @@ class User(models.Model):
 
 
 class Airport(models.Model):
-  name = models.CharField(max_length=55, null=True)
+  name = models.CharField(max_length=800, null=True)
 
   def __str__(self):
     return self.name
