@@ -47,7 +47,7 @@ def airports(request):
     # Now, create the Airport objects and serialize them
     updated_airports = []
     for data in airport_data:
-        airport, created = Airport.objects.update_or_create(name=data['name'])
+        airport, created = Airport.objects.update_or_create(id=data['id'], defaults={'name': data['name']})
         updated_airports.append(airport)
         if created:
             print(f"Created new airport: {airport.name}")
