@@ -105,12 +105,12 @@ WSGI_APPLICATION = 'runway_reviews_be.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.path.join(BASE_DIR, 'db.postgresql'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.path.join(BASE_DIR, 'db.postgresql'),
+#     }
+# }
 
 # DATABASES = {
 #     'default': dj_database_url.config(
