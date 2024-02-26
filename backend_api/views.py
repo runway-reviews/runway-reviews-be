@@ -46,6 +46,9 @@ def airports(request):
 
     airport_list = get_airports(request)
 
+    if airport_list is None:
+        return JsonResponse([], safe=False, status=200)
+
     updated_airports = []
 
     for airport_name in airport_list:
