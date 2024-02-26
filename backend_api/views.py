@@ -38,22 +38,24 @@ def get_airports(request):
                     airport_name = li.text.split('–')[0].strip()
                     airport_list.append(airport_name)
 
-    return JsonResponse({'airport_list': airport_list}, safe=False)
+    return airport_list
 
 def airports(request):
     airport_list = get_airports(request)
+    airport_data = [{"id": idx, "name": airport_name} for idx, airport_name in enumerate(airport_list, start=1)]
+
+    # Now, create the Airport objects and serialize them
     updated_airports = []
-    for airport_name in airport_list:
-        airport, created = Airport.objects.update_or_create(
-            name=airport_name,
-        )
+    for data in airport_data:
+        airport, created = Airport.objects.update_or_create(name=data['name'])
         updated_airports.append(airport)
         if created:
             print(f"Created new airport: {airport.name}")
         else:
             print(f"Updated existing airport: {airport.name}")
-    airports = Airport.objects.all()
-    serializer = AirportSerializer(airports, many=True)
+
+    # Serialize the updated airports and return the JSON response
+    serializer = AirportSerializer(updated_airports, many=True)
     return JsonResponse(serializer.data, safe=False, status=200)
 
 # Review actions  
