@@ -52,8 +52,8 @@ def airports(request):
             print(f"Created new airport: {airport.name}")
         else:
             print(f"Updated existing airport: {airport.name}")
-
-    serializer = AirportSerializer(updated_airports, many=True)
+    airports = Airport.objects.all()
+    serializer = AirportSerializer(airports, many=True)
     return JsonResponse(serializer.data, safe=False, status=200)
 
 # Review actions  

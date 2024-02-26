@@ -11,6 +11,6 @@ urlpatterns = [
     path('reviews', ReviewList.as_view(), name='review-list'),
     path('get-airports/', views.get_airports, name='get_airports'),
     # path('airports/', views.airports, name='airports'),
-    path('airports/', airports, name='airports'),
+    path('airports/', views.airports, name='airports'),
 
 ]
