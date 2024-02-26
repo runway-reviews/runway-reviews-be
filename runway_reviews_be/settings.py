@@ -14,6 +14,7 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 
+
 import os
 import django_heroku
 from pathlib import Path
@@ -25,13 +26,10 @@ import dj_database_url
 #     )
 # }
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+    'default': dj_database_url.config(
+        default='postgres://localhost:5432/runwayreviewsbe'
+    )
 }
-
-#     'default': dj_database_url.config(
-#         default=config('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
-#     )
-# }
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -42,7 +40,7 @@ APPEND_SLASH = True
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-c@a8tt&m4xgq8i-jt*m5+)*fe@awf7t3os--hrj(owsmfe@@u3'
 
-SIMPLE_API_KEY = env('SIMPLE_API_KEY')
+#SIMPLE_API_KEY = env('SIMPLE_API_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -105,12 +103,12 @@ WSGI_APPLICATION = 'runway_reviews_be.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.path.join(BASE_DIR, 'db.postgresql'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.path.join(BASE_DIR, 'db.postgresql'),
+    }
+}
 
 DATABASES = {
     'default': dj_database_url.config(
