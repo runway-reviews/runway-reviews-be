@@ -14,43 +14,35 @@ import pdb
 
 # SIMPLE_API_KEY = settings.SIMPLE_API_KEY
 def get_airports(request):
-
     url = "https://www.stratosjets.com/blog/busiest-us-airports/"
     response = requests.get(url)
-
-    # Parse the content of the response with Beautiful Soup
     soup = BeautifulSoup(response.content, 'html.parser')
-
-    # Now you can use the 'soup' object to find elements in the page
     post_content_divs = soup.find_all('div', class_='post-content entry-content')
-
-    # Initialize an empty list
     airport_list = []
-
     for div in post_content_divs:
-        header = div.find('h2')
-        if header and header.text.strip() == "What Are the Top 20 Busiest Airports in the United States?":
-            ol_element = div.find('ol')
+        # Find the header inside the current div
+        header = div.find('h2', string="What Are the Top 20 Busiest Airports in the United States?")
+        
+        # Check if header is found
+        if header:
+            # Once the header is found, find the ordered list (ol) inside the div
+            ol_element = header.find_next_sibling('ol')
+            
+            # Check if ol_element is found
             if ol_element:
+                # Find all list items (li) inside the ordered list (ol)
                 li_elements = ol_element.find_all('li')
+                
+                # Extract airport names from list items and append to airport_list
                 for li in li_elements:
-                    # Split the text on '–' and take the first part
                     airport_name = li.text.split('–')[0].strip()
-                    # Append the airport name to the list
                     airport_list.append(airport_name)
 
-    # Now 'airport_list' is a list of airport names
-    print(airport_list)
+    return JsonResponse({'airport_list': airport_list}, safe=False)
 
 def airports(request):
-
     airport_list = get_airports(request)
-
-    if airport_list is None:
-        return JsonResponse([], safe=False, status=200)
-
     updated_airports = []
-
     for airport_name in airport_list:
         airport, created = Airport.objects.update_or_create(
             name=airport_name,
