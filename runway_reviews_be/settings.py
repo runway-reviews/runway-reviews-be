@@ -28,7 +28,7 @@ from decouple import config
 # }
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://localhost:5432/runwayreviewsbe'
+        default=config('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
     )
 }
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
