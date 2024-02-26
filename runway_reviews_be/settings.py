@@ -19,6 +19,7 @@ import os
 import django_heroku
 from pathlib import Path
 import dj_database_url
+from decouple import config
 
 # DATABASES = {
 #     'default': dj_database_url.config(
