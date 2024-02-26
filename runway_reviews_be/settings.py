@@ -25,7 +25,7 @@ import dj_database_url
 
 DATABASES = {
     'default': dj_database_url.config(
-        default = env('DATABASE_URL', default='postgres://superuser:12345@localhost:5432/runwayreviewsbe')
+        default=os.environ.get('DATABASE_URL', 'postgres://localhost:5432/runwayreviewsbe')
     )
 }
 # DATABASES = {
