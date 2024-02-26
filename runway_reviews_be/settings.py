@@ -113,9 +113,10 @@ DATABASES = {
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://localhost:5432/runwayreviewsbe'
+        default=config('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
     )
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
