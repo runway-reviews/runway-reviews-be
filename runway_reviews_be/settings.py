@@ -21,16 +21,16 @@ from pathlib import Path
 import dj_database_url
 from decouple import config
 
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default = env('DATABASE_URL', default='postgres://superuser:12345@localhost:5432/runwayreviewsbe')
-#     )
-# }
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
+        default = env('DATABASE_URL', default='postgres://superuser:12345@localhost:5432/runwayreviewsbe')
     )
 }
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
+#     )
+# }
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
