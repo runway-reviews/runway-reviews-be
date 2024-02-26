@@ -1,4 +1,3 @@
-from django.db import IntegrityError
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 import requests
@@ -7,8 +6,6 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from backend_api.models import *
 from backend_api.serializers import UserSerializer, ReviewSerializer, AirportSerializer
-# from django.conf import settings
-# from rest_framework import generics
 from bs4 import BeautifulSoup
 import pdb
 
@@ -58,45 +55,6 @@ def airports(request):
     serializer = AirportSerializer(updated_airports, many=True)
     return JsonResponse(serializer.data, safe=False, status=200)
 
-# Review actions  
-# def get_airports(request):
-#   url = "https://api.api-ninjas.com/v1/airports?country=us"
-#   headers = { 
-#     "X-Api-Key": SIMPLE_API_KEY
-#   }
-#   response = requests.get(url, headers=headers)
-#   if response.status_code == 200:
-#       return response.json()
-#   else:
-#       return JsonResponse({"error": "Failed to fetch data"}, status=500)
-  
-  
-# def airports(request):
-#     updated_airports = []
-#     try: 
-#       airports_data = get_airports(request)
-#       for airport_data in airports_data:
-#         airport, created = Airport.objects.update_or_create(
-#           name=airport_data['name'],
-#         )
-#         updated_airports.append(airport)
-#         if created:
-#             print(f"Created new airport: {airport.name}")
-#         else:
-#             print(f"Updated existing airport: {airport.name}")
-#       serializer = AirportSerializer(updated_airports, many=True)
-#       return JsonResponse(serializer.data, safe=False, status=200)
-#     except IntegrityError as e:
-#         print(f"Database error occurred: {e}")
-#         return JsonResponse({"error": str(e)}, status=500)
-#     except Exception as e:
-#         print(f"An error occurred: {e}")
-#         return JsonResponse({"error": str(e)}, status=500)
-
-# class AirportList(generics.ListCreateAPIView):
-#     queryset = Airport.objects.all()
-#     serializer_class = AirportSerializer
-    
 class UserDetails(APIView):
   def post(self, request):
       serializer = UserSerializer(data=request.data)
