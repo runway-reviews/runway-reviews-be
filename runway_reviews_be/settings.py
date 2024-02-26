@@ -112,11 +112,11 @@ DATABASES = {
     }
 }
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
-    )
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
+#     )
+# }
 
 
 # Password validation
