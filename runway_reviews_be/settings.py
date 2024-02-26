@@ -14,12 +14,14 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 
+DATABASE_URL = env('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
 
 import os
 import django_heroku
 from pathlib import Path
 import dj_database_url
-from decouple import config
+# from decouple import config
+
 
 DATABASES = {
     'default': dj_database_url.config(
