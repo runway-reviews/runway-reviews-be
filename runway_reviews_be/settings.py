@@ -14,11 +14,25 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 
+DATABASE_URL = env('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
+
 import os
 import django_heroku
 from pathlib import Path
 import dj_database_url
+# from decouple import config
 
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL', 'postgres://localhost:5432/runwayreviewsbe')
+    )
+}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
+#     )
+# }
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -29,13 +43,14 @@ APPEND_SLASH = True
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-c@a8tt&m4xgq8i-jt*m5+)*fe@awf7t3os--hrj(owsmfe@@u3'
 
-SIMPLE_API_KEY = env('SIMPLE_API_KEY')
+#SIMPLE_API_KEY = env('SIMPLE_API_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = False # Set to False for deployment 
-ALLOWED_HOSTS = ['*'] 
+DEBUG = True # Set to False for deployment 
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'runwayreviewsbe-4165084ad9d0.herokuapp.com']
+
 
 
 # Application definition
@@ -57,14 +72,15 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware', 
 ]
 
 ROOT_URLCONF = 'runway_reviews_be.urls'
@@ -97,24 +113,12 @@ WSGI_APPLICATION = 'runway_reviews_be.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.postgresql'),
 #     }
 # }
-# # DATABASES = {
-# #     'default': dj_database_url.config(
-# #         default='postgres://localhost:5432/runwayreviewsbe'
-# #     )
-# # }
+
 # DATABASES = {
 #     'default': dj_database_url.config(
-#         default = env('DATABASE_URL', default='postgres://superuser:12345@localhost:5432/runwayreviewsbe')
+#         default=config('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
 #     )
 # }
-# DATABASES = {
-#     'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
-# }
-DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL', default='postgres://localhost:5432/runwayreviewsbe')
-    )
-}
 
 
 # Password validation
