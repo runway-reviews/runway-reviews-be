@@ -7,6 +7,8 @@ from rest_framework.views import APIView
 from backend_api.models import *
 from backend_api.serializers import UserSerializer, ReviewSerializer, AirportSerializer
 from bs4 import BeautifulSoup
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 import pdb
 
 # SIMPLE_API_KEY = settings.SIMPLE_API_KEY
@@ -69,11 +71,12 @@ class UserDetails(APIView):
       serializer = UserSerializer(users, many=True)
       return Response(serializer.data)
 
-class ReviewList(APIView):
-    def get(self, request):
-        reviews = Review.objects.all()
-        serializer = ReviewSerializer(reviews, many=True)
-        return Response(serializer.data)
+# class ReviewList(APIView):
+#     @method_decorator(cache_page(60*15))
+#     def get(self, request):
+#         reviews = Review.objects.all()
+#         serializer = ReviewSerializer(reviews, many=True)
+#         return Response(serializer.data)
 
       
 class ReviewDetails(APIView):
@@ -90,6 +93,12 @@ class ReviewDetails(APIView):
         review = self.get_review(review_id)
         serializer = ReviewSerializer(review)
         return Response(serializer.data) 
+    
+    @method_decorator(cache_page(60*15))
+    def get(self, request):
+        reviews = Review.objects.all()
+        serializer = ReviewSerializer(reviews, many=True)
+        return Response(serializer.data)
 
     def post(self, request, user_id, format=None):
       user = self.get_user(user_id)
