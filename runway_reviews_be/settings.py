@@ -48,7 +48,7 @@ SECRET_KEY = 'django-insecure-c@a8tt&m4xgq8i-jt*m5+)*fe@awf7t3os--hrj(owsmfe@@u3
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True # Set to False for deployment 
+DEBUG = False # Set to False for deployment 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'runwayreviewsbe-4165084ad9d0.herokuapp.com']
 
 
