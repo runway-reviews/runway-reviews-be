@@ -59,7 +59,6 @@ class ReviewSerializer(serializers.ModelSerializer):
         return super().save(**kwargs)
 
 
-
 class AirportSerializer(serializers.ModelSerializer):
   attributes = serializers.SerializerMethodField()
   class Meta:

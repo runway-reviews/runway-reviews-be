@@ -89,16 +89,21 @@ class ReviewDetails(APIView):
     def get_airport(self, airport_id):
         return get_object_or_404(Airport, pk=airport_id)
 
-    def get(self, request, review_id):
-        review = self.get_review(review_id)
-        serializer = ReviewSerializer(review)
-        return Response(serializer.data) 
-    
     @method_decorator(cache_page(60*15))
-    def get(self, request):
-        reviews = Review.objects.all()
-        serializer = ReviewSerializer(reviews, many=True)
-        return Response(serializer.data)
+    def get(self, request, review_id=None):
+        if review_id:
+            review = self.get_review(review_id)
+            serializer = ReviewSerializer(review)
+            return Response(serializer.data)
+        else:
+            reviews = Review.objects.all()
+            serializer = ReviewSerializer(reviews, many=True)
+            return Response(serializer.data)
+
+    # def get(self, request):
+    #     reviews = Review.objects.all()
+    #     serializer = ReviewSerializer(reviews, many=True)
+    #     return Response(serializer.data)
 
     def post(self, request, user_id, format=None):
       user = self.get_user(user_id)
