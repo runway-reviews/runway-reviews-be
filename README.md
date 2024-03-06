@@ -54,7 +54,8 @@ Reviews
 ## Collaborators
 Front-End :
 [Emalee Poellot](https://github.com/em2396)  | 
-[Zen Mcmillan](https://github.com/zenmcmillan) 
+[Zen Mcmillan](https://github.com/zenmcmillan) |
+[Amy Siu](https://github.com/amysiu1028) 
 
 Back-End:
 [Justin Lee](https://github.com/JustinSteel) |
